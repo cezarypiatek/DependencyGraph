@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DependencyGraph", "DependencyGraph\DependencyGraph.fsproj", "{827CFD05-8A1F-48C2-AFD5-6A9A0ED2C12E}"
+EndProject
+Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "CopyGraphViz", "CopyGraphViz.msbuildproj", "{008BB23B-CC8C-44B7-A62B-69C6E7493EA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{827CFD05-8A1F-48C2-AFD5-6A9A0ED2C12E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{827CFD05-8A1F-48C2-AFD5-6A9A0ED2C12E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{827CFD05-8A1F-48C2-AFD5-6A9A0ED2C12E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{827CFD05-8A1F-48C2-AFD5-6A9A0ED2C12E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{827CFD05-8A1F-48C2-AFD5-6A9A0ED2C12E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{827CFD05-8A1F-48C2-AFD5-6A9A0ED2C12E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{827CFD05-8A1F-48C2-AFD5-6A9A0ED2C12E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{827CFD05-8A1F-48C2-AFD5-6A9A0ED2C12E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
