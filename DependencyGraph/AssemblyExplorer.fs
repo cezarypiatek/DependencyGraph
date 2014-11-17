@@ -4,7 +4,7 @@ module AssemblyExplorer=
     open System.IO
     open System.Collections.Generic
     
-    let getAssemblyDependencies (assemblyPath)=
+    let getAssemblyDependencies (assemblyPath)= async{
         let exploredAssemblies = new HashSet<string>()
         let dir = Path.GetDirectoryName(assemblyPath)
         let rootAssembly = Assembly.LoadFrom(assemblyPath) 
@@ -37,9 +37,11 @@ module AssemblyExplorer=
                       match loadAssembly reference with
                           |Some refAssembly -> yield! getDependencies refAssembly     
                           |None -> exploredAssemblies.Add(refFullName) |> ignore                            
-        }       
-        getDependencies rootAssembly |> List.ofSeq  
-
+        }
+        
+        return getDependencies rootAssembly |> List.ofSeq
+        }  
+        
     let getAssemblyList dependencies=
         dependencies 
         |> List.map (fun (a,b)-> [a;b]) 

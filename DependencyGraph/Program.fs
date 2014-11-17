@@ -48,10 +48,22 @@ let presentOnList dependencies=
     AssemblyExplorer.getAssemblyList dependencies  |> loadToList  
     registedCheckHandler dependencies
 
-let presentAssemblyDependencies path=
-    let dependencies = AssemblyExplorer.getAssemblyDependencies path
-    drawGraph dependencies
-    presentOnList dependencies
+let blockUI()=
+    Application.UseWaitCursor <- true
+
+let unblockUI()=
+    Application.UseWaitCursor <- false 
+
+let presentAssemblyDependencies path=    
+    do blockUI()
+    let sctx = System.Threading.SynchronizationContext.Current    
+    async{        
+        let! dependencies = AssemblyExplorer.getAssemblyDependencies path        
+        do! Async.SwitchToContext sctx
+        drawGraph dependencies
+        presentOnList dependencies
+        do unblockUI()    
+    } |> Async.Start
 
 let readFileName()=
     let dialog = new OpenFileDialog()
@@ -60,7 +72,7 @@ let readFileName()=
        Some(dialog.FileName)
     else None
 
-let loadAssembly()=
+let loadAssembly()= 
     match readFileName() with
     |Some path -> presentAssemblyDependencies path
     |None -> ()
