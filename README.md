@@ -4,7 +4,7 @@ DependencyGraph
 A small F# application to visualize .NET assembly dependencies.
 It use GraphViz library do draw dependency graph.
 
-![Sample screenshot](https://github.com/cezarypiatek/DependencyGraph/tree/master/doc/screen01.jpg)
+![Sample screenshot](https://raw.githubusercontent.com/cezarypiatek/DependencyGraph/master/doc/screen01.jpg)
 
 ##Solution structure
 **DependencyGraph** -  main application
