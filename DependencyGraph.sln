@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DependencyGraph", "DependencyGraph\DependencyGraph.fsproj", "{827CFD05-8A1F-48C2-AFD5-6A9A0ED2C12E}"
-EndProject
-Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "CopyGraphViz", "CopyGraphViz.msbuildproj", "{008BB23B-CC8C-44B7-A62B-69C6E7493EA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
