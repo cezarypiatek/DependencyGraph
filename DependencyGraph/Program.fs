@@ -3,17 +3,24 @@ open System.Windows.Forms
 open DependencyGraph
 
 let wb = new WebBrowser()
-let list = new CheckedListBox();
-
-
+let list = new CheckedListBox()
+let statusLabel = new Label()
+type vanillaDelegate = delegate of unit -> unit
 let displaySvg (bytes:byte[])=    
     let svg = System.Text.Encoding.UTF8.GetString(bytes)    
     wb.DocumentText <- svg
 
-let drawGraph dependencies =
-    dependencies    
-    |> GraphVizUtil.generateGraphSvg
-    |> displaySvg 
+let showStatus status=
+    statusLabel.Invoke (vanillaDelegate(fun () -> statusLabel.Text <- status)) |> ignore    
+
+let drawGraph dependencies = async{
+    showStatus "Generating SVG... (this may take awhile)"
+    let! svg = dependencies |> GraphVizUtil.generateGraphSvg 
+    displaySvg svg
+    showStatus "Completed"
+}
+    
+    
 
 let getUncheckedAssemblyNames (args:ItemCheckEventArgs)=
     let isUnChecked index=
@@ -30,7 +37,7 @@ let registedCheckHandler dependencies=
         let ignoredAssemblies = getUncheckedAssemblyNames args
         dependencies 
         |>  AssemblyExplorer.filterAssemblies  ignoredAssemblies  
-        |> drawGraph 
+        |> drawGraph |> Async.Start
     )
     list.ItemCheck.AddHandler(checkHandler)
 
@@ -56,11 +63,12 @@ let unblockUI()=
 
 let presentAssemblyDependencies path=    
     do blockUI()
+    showStatus "Traversing dependencies..."
     let sctx = System.Threading.SynchronizationContext.Current    
     async{        
         let! dependencies = AssemblyExplorer.getAssemblyDependencies path        
-        do! Async.SwitchToContext sctx
-        drawGraph dependencies
+        do! Async.SwitchToContext sctx        
+        drawGraph dependencies |> Async.Start
         presentOnList dependencies
         do unblockUI()    
     } |> Async.Start
@@ -86,6 +94,7 @@ let prepareMenu()=
 
 let prepareMainForm()=
     let form = new Form(Width=500, Height=400, Visible=true, Text="Dependency Graph")
+    statusLabel.Text <- "Load assembly to generate graph"    
     wb.Dock<- DockStyle.Fill 
     wb.Navigate("about:blank")
     form.Controls.Add(wb)    
@@ -93,6 +102,8 @@ let prepareMainForm()=
     list.Width <-200
     form.Controls.Add(list)
     form.Controls.Add(prepareMenu())
+    statusLabel.Dock <- DockStyle.Bottom
+    form.Controls.Add(statusLabel)    
     form
 
 

@@ -25,14 +25,17 @@ module GraphVizUtil=
             yield DotLang.endGraph
         } |> (fun x -> System.String.Join("\n",x))
 
-    let generateGraphImage str=
+    let generateGraphImage str= async{        
         let getStartProcessQuery = new GetStartProcessQuery()
         let getProcessStartInfoQuery = new GetProcessStartInfoQuery()
         let registerLayoutPluginCommand = new RegisterLayoutPluginCommand(getProcessStartInfoQuery, getStartProcessQuery)
         let wrapper = new GraphGeneration(getStartProcessQuery, getProcessStartInfoQuery, registerLayoutPluginCommand)
-        wrapper.GenerateGraph(str, Enums.GraphReturnType.Svg)
+        return wrapper.GenerateGraph(str, Enums.GraphReturnType.Svg)
+        }
     
-    let generateGraphSvg relationsList= 
-        relationsList |> translateGraptToDotLanguage |> generateGraphImage
+    let generateGraphSvg relationsList= async{
+        return! relationsList |> translateGraptToDotLanguage |> generateGraphImage
+    }
+        
 
             
