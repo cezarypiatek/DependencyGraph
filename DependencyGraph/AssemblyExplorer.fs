@@ -4,10 +4,10 @@ module AssemblyExplorer=
     open System.IO
     open System.Collections.Generic
     
-    let getAssemblyDependencies (assemblyPath)= async{
+    let getAssemblyDependencies (assemblyPath : string)= async{
         let exploredAssemblies = new HashSet<string>()
-        let dir = Path.GetDirectoryName((string)assemblyPath)
-        let rootAssembly = Assembly.LoadFrom(assemblyPath) 
+        let dir = Path.GetDirectoryName(assemblyPath)
+        let rootAssembly = Assembly.ReflectionOnlyLoadFrom(assemblyPath) 
 
         let getAssemblyPath (assemblyName:AssemblyName)=
             sprintf "%s\\%s.dll" dir assemblyName.Name

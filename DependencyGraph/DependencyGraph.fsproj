@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net5.0-windows</TargetFramework>
+		<TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
 		<WarnOn>3390;$(WarnOn)</WarnOn>
 		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
@@ -9,7 +9,6 @@
     <Compile Include="GraphVizUtil.fs" />
     <Compile Include="AssemblyExplorer.fs" />
     <Compile Include="Program.fs" />
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GraphVizWrapper">
