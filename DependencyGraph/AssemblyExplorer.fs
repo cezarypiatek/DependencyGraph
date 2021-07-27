@@ -6,7 +6,7 @@ module AssemblyExplorer=
     
     let getAssemblyDependencies (assemblyPath)= async{
         let exploredAssemblies = new HashSet<string>()
-        let dir = Path.GetDirectoryName(assemblyPath)
+        let dir = Path.GetDirectoryName((string)assemblyPath)
         let rootAssembly = Assembly.LoadFrom(assemblyPath) 
 
         let getAssemblyPath (assemblyName:AssemblyName)=
