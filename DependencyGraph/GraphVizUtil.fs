@@ -1,7 +1,7 @@
 ﻿namespace DependencyGraph
 module DotLang=
     let nameForVertext (a:string)= a.Replace(".","_").Replace(" ","_")
-    let beginGraph = "digraph G{"
+    let beginGraph = "digraph G{  rankdir=LR; graph [fontname=\"Calibri\"]; node [fontname=\"Calibri\", shape=box]; "
     let endGraph = "}"
     let relation v1 v2 = sprintf "\t%s -> %s;" (nameForVertext v1) (nameForVertext v2)
     let labelForVertex v= sprintf "%s[label=\"%s\"];" (nameForVertext v) v
